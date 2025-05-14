@@ -1,0 +1,110 @@
+<!-- Inherit layout and styling from base.html -->
+{% extends 'base.html' %}
+<!-- Set custom background class for the analysis page -->
+{% set body_class = 'analysis-bg' %}
+<!-- Define the page title for this view -->
+{% block title %}Analyze Data{% endblock %}
+
+
+<!-- Begin main content block -->
+{% block content %}
+<div class="container mt-4 text-white">
+<div class="glass-box">
+
+    <!-- Pass fileId to JS -->
+    <script>
+    <!-- Store file ID for use in JS functions to load data -->
+        const fileId = {{ file_id|tojson }};
+    </script>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>📊 Analyze Your Data</h2>
+        <button class="btn btn-outline-light btn-sm" onclick="toggleAnalysisTheme()">
+            🎨 Toggle Table/Chart Theme
+        </button>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+<!-- Dropdown to choose a column for chart visualization -->
+            <label for="columnSelect" class="form-label">Select Column:</label>
+            <select id="columnSelect" class="form-select"></select>
+        </div>
+        <div class="col-md-6">
+<!-- Dropdown to choose chart type (Bar, Pie, etc.) -->
+            <label for="chartType" class="form-label">Select Chart Type:</label>
+            <select id="chartType" class="form-select">
+                <option value="BarChart">Bar Chart</option>
+                <option value="PieChart">Pie Chart</option>
+                <option value="LineChart">Line Chart</option>
+                <option value="TreeMap">Tree Map</option>
+            </select>
+        </div>
+    </div>
+
+<!-- Container where Google Chart is rendered -->
+    <div id="chart_div" class="rounded shadow p-3 chart-dark" style="width: 100%; height: 500px;"></div>
+
+    
+
+    <div class="table-responsive mt-5">
+<!-- Editable data table displaying CSV contents -->
+        <table class="table table-bordered theme-table table-dark" id="dataTable">
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<div class="d-flex justify-content-end gap-3 mt-4 me-2" style="position: fixed; right: 20px; top: 200px; z-index: 1000;">
+        <div class="d-grid gap-2">
+<!-- Row/Column controls and undo option -->
+            <button class="btn btn-danger btn-sm" id="removeRowBtn">➖ Row</button>
+            <button class="btn btn-danger btn-sm" id="removeColBtn">➖ Col</button>
+            <button class="btn btn-success btn-sm" id="addRowBtn">➕ Row</button>
+            <button class="btn btn-success btn-sm" id="addColBtn">➕ Col</button>
+            <button class="btn btn-light btn-sm" id="undoBtn">↩️ Undo</button>
+        </div>
+    </div>
+</div>
+
+<!-- JS to load charts and data -->
+<!-- Load Google Charts JS library -->
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<!-- Custom JS for handling charts and table interactions -->
+<script src="{{ url_for('static', filename='js/analysis.js') }}"></script>
+
+<!-- Custom Theme Toggle Logic for Analysis -->
+<script>
+<!-- JavaScript to toggle between light and dark themes for chart and table -->
+    function toggleAnalysisTheme() {
+        const table = document.getElementById("dataTable");
+<!-- Container where Google Chart is rendered -->
+        const chartDiv = document.getElementById("chart_div");
+
+        table.classList.toggle("table-dark");
+        table.classList.toggle("table-light");
+
+        chartDiv.classList.toggle("chart-dark");
+        chartDiv.classList.toggle("chart-light");
+
+        // Optionally re-draw chart to apply styling
+        if (typeof drawChart === 'function') {
+            drawChart();
+        }
+    }
+</script>
+
+<style>
+/* Chart style definitions for dark mode */
+    .chart-dark {
+        background-color: #1c1f24;
+        color: white;
+    }
+
+    .chart-light {
+        background-color: #f1f1f1;
+        color: black;
+    }
+</style>
+{% endblock %}

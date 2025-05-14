@@ -1,0 +1,43 @@
+<!-- Extend base layout for consistent design -->
+{% extends 'base.html' %}
+<!-- Set login-style background for register page -->
+{% set body_class = 'login-bg' %}
+<!-- Set browser tab title to 'Register' -->
+{% block title %}Register{% endblock %}
+
+<!-- Start of register page content -->
+{% block content %}
+<!-- Styling for the glass-style register box -->
+<style>
+/* Registration form container */
+    .glass-box {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        border-radius: 20px;
+        padding: 40px 30px;
+        max-width: 600px;
+        margin: 60px auto;
+    }
+</style>
+
+<!-- Registration form container -->
+<div class="glass-box text-white">
+    <h2 class="text-center mb-4">📝 Register</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label>Username</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-outline-light">Register</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

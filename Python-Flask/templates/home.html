@@ -1,0 +1,43 @@
+<!-- Inherit the layout and styling from base.html -->
+{% extends 'base.html' %}
+<!-- Set background style specific to the home page -->
+{% set body_class = 'home-bg' %}
+<!-- Set browser tab title -->
+{% block title %}Welcome to Grp7Final{% endblock %}
+
+<!-- Main home page content begins -->
+{% block content %}
+<!-- Styles specific to home page layout and glass UI -->
+<style>
+    .glass-box {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        border-radius: 20px;
+        padding: 60px 40px;
+        max-width: 900px;
+        margin: 60px auto;
+    }
+</style>
+
+<!-- Container for welcome message and buttons -->
+<div class="glass-box text-center text-white">
+    <h1 class="display-4 mb-3">🚀 Grp7Final</h1>
+    <p class="lead">An interactive platform for uploading, analyzing, and visualizing your data files with Google Charts.</p>
+<!-- Show dashboard link if user is logged in -->
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('dashboard') }}" class="btn btn-primary mt-3">Go to Dashboard</a>
+    {% else %}
+    <div class="d-flex justify-content-center gap-3 mt-4">
+<!-- Login button for unauthenticated users -->
+        <a href="{{ url_for('login') }}" class="btn btn-success">Login</a>
+<!-- Register button for new users -->
+        <a href="{{ url_for('register') }}" class="btn btn-outline-light">Register</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+

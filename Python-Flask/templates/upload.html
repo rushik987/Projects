@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% set body_class = 'upload-page' %}
+{% block title %}Upload CSV{% endblock %}
+{% block content %}
+<!-- Background Video -->
+<video autoplay muted loop id="bg-video">
+  <source src="{{ url_for('static', filename='videos/upload_bg.mp4') }}" type="video/mp4">
+</video>
+
+<style>
+  #bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+
+  .glass-upload-box {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 16px;
+    color: white;
+    max-width: 700px;
+    margin: 100px auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+</style>
+
+<div class="glass-upload-box">
+  <h2 class="mb-4">📤 Upload CSV File</h2>
+  <form method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <input type="file" name="file" class="form-control" accept=".csv" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Upload & Analyze</button>
+  </form>
+</div>
+{% endblock %}

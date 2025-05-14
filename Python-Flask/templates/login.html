@@ -1,0 +1,43 @@
+<!-- Extend base layout and styles from base.html -->
+{% extends 'base.html' %}
+<!-- Set login page background styling -->
+{% set body_class = 'login-bg' %}
+<!-- Set the page title to 'Login' -->
+{% block title %}Login{% endblock %}
+
+!-- Begin main login content block -->
+{% block content %}
+<!-- Styling for glass box login form -->
+<style>
+    .glass-box {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        border-radius: 20px;
+        padding: 40px 30px;
+        max-width: 600px;
+        margin: 60px auto;
+    }
+</style>
+
+<!-- Container for login form with styled background -->
+<div class="glass-box text-white">
+    <h2 class="text-center mb-4">🔐 Login</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label>Username</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-success">Login</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
