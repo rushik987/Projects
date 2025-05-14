@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+	<script>
+        function verify() {
+            const form = document.forms['form'];
+            const password = form['password'].value;
+            const verifyPassword = form['verifyPassword'].value;
+            const errorDiv = document.getElementById('error');
+
+            if (password !== verifyPassword) {
+                errorDiv.textContent = "Passwords do not match. Please try again.";
+                errorDiv.style.color = "red";
+                return false;
+            }
+            errorDiv.textContent = "";
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+	<h1>Register Here!</h1>
+    <div id="error" class="error"></div>
+    <form name="form" action="#" th:action="@{/register}" method="post" onsubmit="return verify()">
+        <label for="username">Email:</label>
+        <input type="email" id="username" name="username" required /><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required /><br>
+
+        <label for="verifyPassword">Verify Password:</label>
+        <input type="password" id="verifyPassword" name="verifyPassword" required /><br>
+
+        <input type="submit" value="Register">
+    </form>
+    <p><a th:href="@{/login}">Already have an account? Log in here</a></p>
+</body>
+</html>
